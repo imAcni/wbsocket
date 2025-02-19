@@ -16,5 +16,29 @@
         "answer": "war{cryptographymaster1}",
         "file": "/files/question3.txt",
         "download": "question3.txt"
+    },
+    {
+        "question": "Can you find the hidden flag on the website?",
+        "answer": "war{devtoolsmaster1020}",
+        "file": "/files/question4.html",
+        "download": "question4.html"
+    },
+    {
+        "question": "Mr. imAcni, the creator of ctfwars, really misses cyberstart and even wrote a secret message for them on github.",
+        "answer": "war{war{OSINTmaster101}}",
+        "file": "",
+        "download": ""
+    },
+    {
+        "question": "ptk{vtxlxklabymxk101}",
+        "answer": "war{caesershifter101}",
+        "file": "",
+        "download": ""
+    },
+    {
+        "question": "BEEP BOOP BEEP, they cannot see this page",
+        "answer": "war{robotstxtmaster1000}",
+        "file": "",
+        "download": ""
     }
 ]
