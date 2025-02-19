@@ -1,12 +1,12 @@
 [
     {
-        "question": "Find the flag from this image... Difficulty Easy",
+        "question": "Find the flag from this (broken) image... Difficulty Easy",
         "answer": "4",
         "file": "/files/question1.jpg",
         "download": "question1.txt"
     },
     {
-        "question": "What is the capital of France?",
+        "question": "What is wrong with this file??? Difficulty Easy",
         "answer": "paris",
         "file": "/files/question2.jpg",
         "download": "question2.txt"
