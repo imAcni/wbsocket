@@ -1,13 +1,13 @@
 [
     {
         "question": "Find the flag from this (broken) image... Difficulty Easy",
-        "answer": "4",
+        "answer": "war{secret_text_image_1} ",
         "file": "/files/question1.jpg",
         "download": "question1.jpg"
     },
     {
         "question": "What is wrong with this file??? Difficulty Easy",
-        "answer": "paris",
+        "answer": "war{convertingmaster123}",
         "file": "/files/question2.jpg",
         "download": "question2.jpg"
     },
