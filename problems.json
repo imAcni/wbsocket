@@ -1,0 +1,17 @@
+[
+    {
+        "question": "What is 2 + 2?",
+        "answer": "4",
+        "file": "/files/question1.txt"
+    },
+    {
+        "question": "What is the capital of France?",
+        "answer": "paris",
+        "file": "/files/question2.txt"
+    },
+    {
+        "question": "Who wrote 'To Kill a Mockingbird'?",
+        "answer": "harper lee",
+        "file": "/files/question3.txt"
+    }
+]

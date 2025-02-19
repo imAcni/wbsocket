@@ -16,6 +16,17 @@ const io = new Server(server, {
     }
 });
 
+let problems = [];
+fs.readFile("problems.json", "utf8", (err, data) => {
+    if (err) {
+        console.error("Error reading problems.json:", err);
+    } else {
+        problems = JSON.parse(data);  // Parse the JSON data into an object
+    }
+});
+
+const lobbyAnswers = {};
+
 const activeLobbies = {}; // Move this above all routes
 
 app.get("/create-lobby", (req, res) => {
@@ -43,7 +54,20 @@ io.on("connection", (socket) => {
         console.log(`User ${socket.id} joined lobby ${lobbyId}`);
 
         if (activeLobbies[lobbyId].length === 2) {
-            io.to(lobbyId).emit("start-game");
+            const randomProblem = problems[Math.floor(Math.random() * problems.length)];
+            io.to(lobbyId).emit("start-game", { problem: randomProblem, fileUrl: randomProblem.file });
+
+            lobbyAnswers[lobbyId] = randomProblem.answer;
+            
+        }
+    });
+
+    socket.on("submit-answer", (lobbyId, answer) => {
+        if (lobbyAnswers[lobbyId] && lobbyAnswers[lobbyId].toLowerCase() === answer.toLowerCase()) {
+            io.to(lobbyId).emit("game-over", { winner: socket.id, message: "Congratulations, you won!" });
+            delete lobbyAnswers[lobbyId]; // End the game by removing the stored answer
+        } else {
+            socket.emit("incorrect-answer", { message: "Incorrect answer, try again!" });
         }
     });
 
