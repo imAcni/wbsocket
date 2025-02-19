@@ -2,7 +2,8 @@ const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
-const { v4: uuidv4 } = require("uuid");
+const crypto = require("crypto");
+const uuidv4 = () => crypto.randomUUID();
 
 const app = express();
 app.use(cors());
