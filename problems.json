@@ -1,7 +1,7 @@
 [
     {
         "question": "Find the flag from this (broken) image... Difficulty Easy",
-        "answer": "war{secret_text_image_1} ",
+        "answer": "war{secret_text_image_1}",
         "file": "/files/question1.jpg",
         "download": "question1.jpg"
     },
@@ -12,8 +12,8 @@
         "download": "question2.jpg"
     },
     {
-        "question": "Who wrote 'To Kill a Mockingbird'?",
-        "answer": "harper lee",
+        "question": "Can you decipher this code?",
+        "answer": "war{cryptographymaster1}",
         "file": "/files/question3.txt",
         "download": "question3.txt"
     }
