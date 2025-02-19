@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
 
         if (activeLobbies[lobbyId].length === 2) {
             const randomProblem = problems[Math.floor(Math.random() * problems.length)];
-            io.to(lobbyId).emit("start-game", { problem: randomProblem, fileUrl: randomProblem.file });
+            io.to(lobbyId).emit("start-game", { problem: randomProblem, fileUrl: randomProblem.file, download: randomProblem.download });
 
             lobbyAnswers[lobbyId] = randomProblem.answer;
             
