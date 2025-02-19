@@ -3,13 +3,13 @@
         "question": "Find the flag from this (broken) image... Difficulty Easy",
         "answer": "4",
         "file": "/files/question1.jpg",
-        "download": "question1.txt"
+        "download": "question1.jpg"
     },
     {
         "question": "What is wrong with this file??? Difficulty Easy",
         "answer": "paris",
         "file": "/files/question2.jpg",
-        "download": "question2.txt"
+        "download": "question2.jpg"
     },
     {
         "question": "Who wrote 'To Kill a Mockingbird'?",
