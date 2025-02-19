@@ -91,15 +91,21 @@ io.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
         console.log("User disconnected:", socket.id);
-        for (const [lobbyId, players] of Object.entries(activeLobbies)) {
-            if (players.includes(socket.id)) {
-                activeLobbies[lobbyId] = players.filter((id) => id !== socket.id);
-                if (activeLobbies[lobbyId].length === 0) {
-                    delete activeLobbies[lobbyId];
-                }
-                break; // No need to check other lobbies
+
+    // Check through all active lobbies to find which one the player belongs to
+    for (const [lobbyId, players] of Object.entries(activeLobbies)) {
+        if (players.includes(socket.id)) {
+            // Remove the player from the lobby
+            activeLobbies[lobbyId] = players.filter((id) => id !== socket.id);
+
+            // Only delete the lobby if there are no players left
+            if (activeLobbies[lobbyId].length === 0) {
+                console.log(`Lobby ${lobbyId} is empty, deleting the lobby.`);
+                delete activeLobbies[lobbyId];
             }
+            break; // No need to check other lobbies
         }
+    }
     });
 });
 
