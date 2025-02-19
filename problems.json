@@ -16,5 +16,11 @@
         "answer": "war{cryptographymaster1}",
         "file": "/files/question3.txt",
         "download": "question3.txt"
+    },
+    {
+        "question": "Can you decipher this code?",
+        "answer": "war{cryptographymaster1}",
+        "file": "/files/question3.txt",
+        "download": "question3.txt"
     }
 ]
