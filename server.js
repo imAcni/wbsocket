@@ -15,21 +15,29 @@ const io = new Server(server, {
     }
 });
 
+const activeLobbies = {}; // Move this above all routes
+
 app.get("/create-lobby", (req, res) => {
     const lobbyId = uuidv4(); // Generate unique lobby ID
-    activeLobbies[lobbyId] = [];
+    activeLobbies[lobbyId] = []; // Initialize lobby
     res.json({ lobbyId });
 });
-
-const activeLobbies = {};
 
 io.on("connection", (socket) => {
     console.log("A user connected:", socket.id);
 
     socket.on("join-lobby", (lobbyId) => {
-        if (!activeLobbies[lobbyId]) return;
-        activeLobbies[lobbyId].push(socket.id);
+        if (!activeLobbies[lobbyId]) {
+            socket.emit("error", "Lobby does not exist.");
+            return;
+        }
+        
+        if (activeLobbies[lobbyId].length >= 2) {
+            socket.emit("error", "Lobby is full.");
+            return;
+        }
 
+        activeLobbies[lobbyId].push(socket.id);
         socket.join(lobbyId);
         console.log(`User ${socket.id} joined lobby ${lobbyId}`);
 
@@ -37,14 +45,18 @@ io.on("connection", (socket) => {
             io.to(lobbyId).emit("start-game");
         }
     });
+
     socket.on("disconnect", () => {
+        console.log("User disconnected:", socket.id);
         for (const [lobbyId, players] of Object.entries(activeLobbies)) {
             if (players.includes(socket.id)) {
                 activeLobbies[lobbyId] = players.filter((id) => id !== socket.id);
-                if (activeLobbies[lobbyId].length === 0) delete activeLobbies[lobbyId];
+                if (activeLobbies[lobbyId].length === 0) {
+                    delete activeLobbies[lobbyId];
+                }
+                break; // No need to check other lobbies
             }
         }
-        console.log("User disconnected:", socket.id);
     });
 });
 
