@@ -65,7 +65,24 @@ io.on("connection", (socket) => {
 
     socket.on("submit-answer", (lobbyId, answer) => {
         if (lobbyAnswers[lobbyId] && lobbyAnswers[lobbyId].toLowerCase() === answer.toLowerCase()) {
-            io.to(lobbyId).emit("game-over", { winner: socket.id, message: "Congratulations, you won!" });
+            // The current player is the winner
+            io.to(lobbyId).emit("game-over", {
+                winner: socket.id,
+                message: "Congratulations, you won!"
+            });
+    
+            // Find the other player (the loser)
+            const playersInLobby = activeLobbies[lobbyId];
+            const otherPlayerId = playersInLobby.find(id => id !== socket.id);
+    
+            // Send the loser a "You lost" message
+            if (otherPlayerId) {
+                io.to(otherPlayerId).emit("game-over", {
+                    winner: socket.id,
+                    message: "You lost, better luck next time!"
+                });
+            }
+    
             delete lobbyAnswers[lobbyId]; // End the game by removing the stored answer
         } else {
             socket.emit("incorrect-answer", { message: "Incorrect answer, try again!" });
