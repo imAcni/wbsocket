@@ -1,14 +1,14 @@
 [
     {
-        "question": "What is 2 + 2?",
+        "question": "Find the flag from this image... Difficulty Easy",
         "answer": "4",
-        "file": "/files/question1.txt",
+        "file": "/files/question1.jpg",
         "download": "question1.txt"
     },
     {
         "question": "What is the capital of France?",
         "answer": "paris",
-        "file": "/files/question2.txt",
+        "file": "/files/question2.jpg",
         "download": "question2.txt"
     },
     {
