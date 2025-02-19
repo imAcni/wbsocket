@@ -94,11 +94,6 @@ io.on("connection", (socket) => {
         for (const [lobbyId, players] of Object.entries(activeLobbies)) {
             if (players.includes(socket.id)) {
                 activeLobbies[lobbyId] = players.filter((id) => id !== socket.id);
-                if (activeLobbies[lobbyId].length == 1) {
-                    io.to(lobbyId).emit("disconnected", {
-                        message: "Other player disconnected"
-                    });
-                }
                 if (activeLobbies[lobbyId].length === 0) {
                     console.log(`Lobby ${lobbyId} is empty, deleting the lobby.`);
                     delete activeLobbies[lobbyId];
