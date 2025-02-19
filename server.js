@@ -22,17 +22,17 @@ fs.readFile("problems.json", "utf8", (err, data) => {
     if (err) {
         console.error("Error reading problems.json:", err);
     } else {
-        problems = JSON.parse(data);  // Parse the JSON data into an object
+        problems = JSON.parse(data); 
     }
 });
 
 const lobbyAnswers = {};
 
-const activeLobbies = {}; // Move this above all routes
+const activeLobbies = {}; 
 
 app.get("/create-lobby", (req, res) => {
-    const lobbyId = uuidv4(); // Generate unique lobby ID
-    activeLobbies[lobbyId] = []; // Initialize lobby
+    const lobbyId = uuidv4(); 
+    activeLobbies[lobbyId] = []; 
     res.json({ lobbyId });
 });
 
@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
 
         if (activeLobbies[lobbyId].length === 2) {
             const randomProblem = problems[Math.floor(Math.random() * problems.length)];
-            io.to(lobbyId).emit("start-game", { problem: randomProblem, fileUrl: randomProblem.file, download: randomProblem.download });
+            io.to(lobbyId).emit("start-game", { problem: randomProblem, fileUrl: randomProblem.file, download: randomProblem.download, downloadboolean: randomProblem.downloadboolean, htmlboolean: randomProblem.htmlboolean });
 
             lobbyAnswers[lobbyId] = randomProblem.answer;
             
@@ -65,17 +65,16 @@ io.on("connection", (socket) => {
 
     socket.on("submit-answer", (lobbyId, answer) => {
         if (lobbyAnswers[lobbyId] && lobbyAnswers[lobbyId].toLowerCase() === answer.toLowerCase()) {
-            // The current player is the winner
+            //winner
             io.to(lobbyId).emit("game-over", {
                 winner: socket.id,
                 message: "Congratulations, you won!"
             });
     
-            // Find the other player (the loser)
+            //loser
             const playersInLobby = activeLobbies[lobbyId];
             const otherPlayerId = playersInLobby.find(id => id !== socket.id);
     
-            // Send the loser a "You lost" message
             if (otherPlayerId) {
                 io.to(otherPlayerId).emit("game-over", {
                     winner: socket.id,
@@ -83,7 +82,7 @@ io.on("connection", (socket) => {
                 });
             }
     
-            delete lobbyAnswers[lobbyId]; // End the game by removing the stored answer
+            delete lobbyAnswers[lobbyId];
         } else {
             socket.emit("incorrect-answer", { message: "Incorrect answer, try again!" });
         }
@@ -92,18 +91,14 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {
         console.log("User disconnected:", socket.id);
 
-    // Check through all active lobbies to find which one the player belongs to
     for (const [lobbyId, players] of Object.entries(activeLobbies)) {
         if (players.includes(socket.id)) {
-            // Remove the player from the lobby
             activeLobbies[lobbyId] = players.filter((id) => id !== socket.id);
-
-            // Only delete the lobby if there are no players left
             if (activeLobbies[lobbyId].length === 0) {
                 console.log(`Lobby ${lobbyId} is empty, deleting the lobby.`);
                 delete activeLobbies[lobbyId];
             }
-            break; // No need to check other lobbies
+            break; 
         }
     }
     });

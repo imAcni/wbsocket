@@ -3,7 +3,9 @@
         "question": "Find the flag from this (broken) image... Difficulty Easy",
         "answer": "war{secret_text_image_1}",
         "file": "/files/question1.jpg",
-        "download": "question1.jpg"
+        "download": "question1.jpg",
+        "downloadboolean": true,
+        "htmlboolean": false
     },
     {
         "question": "What is wrong with this file??? Difficulty Easy",
