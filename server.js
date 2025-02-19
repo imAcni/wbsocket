@@ -3,6 +3,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
 const crypto = require("crypto");
+const fs = require('fs');
 const uuidv4 = () => crypto.randomUUID();
 
 const app = express();
